@@ -11,13 +11,14 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
   .then((r) => r.json())
   .then((result) => {
     console.log(result);
-
-    const city = result.results[23].City;
-
-    let options = document.querySelectorAll("option");
+    
+    let options = document.querySelectorAll('option');
     console.log(options);
 
-    for (let item of options) {
-      item.innerHTML = city;
+    for (let item of options) {     
+      item.innerHTML =  result.results[item.index].City;
     }
   });
+
+
+   
