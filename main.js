@@ -9,16 +9,25 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
   },
 })
   .then((r) => r.json())
-  .then((result) => {
-    console.log(result);
-    
-    let options = document.querySelectorAll('option');
-    console.log(options);
+  .then(handleResults);
 
-    for (let item of options) {     
-      item.innerHTML =  result.results[item.index].City;
-    }
-  });
+function handleResults(result) { 
+ 
+
+const selEl = document.getElementById('cities');
+let length =  result.results.length;
+// console.log (length);
+
+ for (let i = 0; i < length; i++) {
+ const optionEl = document.createElement('option');
+   optionEl.innerHTML = result.results[i].City;
+   selEl.appendChild(optionEl);
+ }
+     
+ }    
+          
 
 
-   
+
+
+
