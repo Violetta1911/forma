@@ -18,11 +18,34 @@ function handleResults(result) {
 
   // find quantity of elements
   let length = result.results.length;
+  let cityList = [];  
+  
+  // create new option for select and put there value
 
-  // create new option for select and put there city valu
   for (let i = 0; i < length; i++) {
     const optionEl = document.createElement("option");
-    optionEl.innerHTML = result.results[i].City;
+    // city + region
+
+    cityList[i] = [ result.results[i].REGION]; 
+    cityList.sort();
+    optionEl.value = cityList[i];   
+    optionEl.innerHTML =  cityList[i]; 
+
+    //  only city
+    // optionEl.value = result.results[i].City;    
+    // optionEl.innerHTML = result.results[i].City;  
+      
+    console.log( result.results[i].City);
     selEl.appendChild(optionEl);
   }
+  
+  
+  
+  console.log(cityList);
 }
+// window.oninput = showResult();
+
+// function showResult() {
+//   let input = document.getElementById('city').value;
+//   alert(input);
+// } 
