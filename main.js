@@ -46,13 +46,13 @@ takeEl.addEventListener('change', (event) => {
 
   const notar = document.querySelector('.notar');
   const userCity = (event.target.value);
-        console.log(userCity); 
        
-   for (let i; i < length; i++){
-    cityList[i] = result.results[i].City; 
-    console.log(cityList[i]);
-    if (userCity == cityList[i]){
+   for (let i =0; i < length; i++){
+    // cityList [i] = result.results[i].City; 
+    if (userCity === cityList[i]){
+     console.log(notarList[i]);
      notar.textContent = notarList[i];
+     break;
      }  else {
        notar.textContent = 'В вашем регионе нет нотариуса';
        }
