@@ -41,12 +41,17 @@ function handleResults(result) {
 const takeEl = selEl;
 takeEl.addEventListener('change', (event) => {
 const userCity = (event.target.value);
-const notarIndex = result.results.findIndex(search => search.City === userCity);
-notar.textContent = result.results[notarIndex].FIO;
+const notarName = result.results.filter(search => search.City === userCity);
+for (let i=0; i < notarName.length; i++){
+  const spanEl = document.createElement("p");
+  notar.appendChild(spanEl) 
+  spanEl.textContent = notarName[i].FIO;
+}
+
 });
 
 // takeEl.addEventListener('change', (event) => {
-//   let userCity = (event.target.value);
+//   let userCity = (event.target.value);kj
 //   let index = cityList.indexOf(userCity);
 //   console.log(index);
 //   notar.textContent = notarList[index];
