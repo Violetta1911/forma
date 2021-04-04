@@ -1,7 +1,7 @@
 // get data file Notar
 const apiKey = "ZxbEE5tR3REABDHNn4afJl3p9_xySoJTUWTv5oTZk7xgky1kQ63OvFlIVjw";
 
-//    const fetch = require('isomorphic-fetch');
+  // const fetch = require('isomorphic-fetch');
 
 fetch("https://api.sheetson.com/v2/sheets/Notar", {
   headers: {
@@ -13,53 +13,55 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
   .then(handleResults);
 
 const selEl = document.getElementById("cities");
+const notar = document.querySelector('.notar');
+
 let cityList = []; 
 let notarList = [];
 
-// create HTML element 'option' and put there City value  
 function handleResults(result) {
+  let length = result.results.length;
+
+  // create HTML element 'option' and put there City value  
  
   console.log(result.results);
   result.results.sort((a, b) => a.City.localeCompare(b.City));
-  
-  // const selEl = document.getElementById("cities");
 
   // find quantity of elements
-  let length = result.results.length;
-
-  // create new option for select and put there value
-
-  for (let i = 0; i < length; i++) {
   
+  for (let i = 0; i < length; i++) {  
     const optionEl = document.createElement("option");
     // city + region
-    cityList[i] = result.results[i].City; 
-    notarList[i] = result.results[i].FIO;
+    cityList[i] = result.results[i].City;   
+    notarList[i] = result.results[i].FIO; 
     optionEl.value = cityList[i];   
     optionEl.innerHTML =  cityList[i]; 
     selEl.appendChild(optionEl);
   }
-
+// find notar at City
 const takeEl = selEl;
 
 takeEl.addEventListener('change', (event) => {
-
-  const notar = document.querySelector('.notar');
-  const userCity = (event.target.value);
-       
-   for (let i =0; i < length; i++){
-    // cityList [i] = result.results[i].City; 
-    if (userCity === cityList[i]){
-     console.log(notarList[i]);
-     notar.textContent = notarList[i];
-     break;
-     }  else {
-       notar.textContent = 'В вашем регионе нет нотариуса';
-       }
-    }
- });
+  let userCity = (event.target.value);
+  let index = cityList.indexOf(userCity);
+  notar.textContent = notarList[index];
+});
 }
 
 
+// takeEl.addEventListener('change', (event) => {
+  
+//   let userCity = (event.target.value);
 
+//   for (let i = 0; i < length; i++){
+//    notarList[i] = result.results[i].FIO;
+
+//    if (userCity === cityList[i]){
+//     console.log(notarList[i]);
+//     notar.textContent = notarList[i];
+//     break;
+//     }  else {
+//       notar.textContent = 'В вашем регионе нет нотариуса';
+//       }
+//    }
+// });
 
