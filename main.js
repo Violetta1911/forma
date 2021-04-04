@@ -31,7 +31,7 @@ function handleResults(result) {
   for (let i = 0; i < length; i++) {  
     const optionEl = document.createElement("option");
     // city + region
-    cityList[i] = result.results[i].City;   
+    cityList[i] = result.results[i].City;     
     notarList[i] = result.results[i].FIO; 
     optionEl.value = cityList[i];   
     optionEl.innerHTML =  cityList[i]; 
@@ -39,14 +39,18 @@ function handleResults(result) {
   }
 // find notar at City
 const takeEl = selEl;
-
 takeEl.addEventListener('change', (event) => {
-  let userCity = (event.target.value);
-  let index = cityList.indexOf(userCity);
-  notar.textContent = notarList[index];
+const userCity = (event.target.value);
+const notarIndex = result.results.findIndex(search => search.City === userCity);
+notar.textContent = result.results[notarIndex].FIO;
 });
-}
 
+// takeEl.addEventListener('change', (event) => {
+//   let userCity = (event.target.value);
+//   let index = cityList.indexOf(userCity);
+//   console.log(index);
+//   notar.textContent = notarList[index];
+// });
 
 // takeEl.addEventListener('change', (event) => {
   
@@ -64,4 +68,6 @@ takeEl.addEventListener('change', (event) => {
 //       }
 //    }
 // });
+}
+
 
