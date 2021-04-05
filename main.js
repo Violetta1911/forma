@@ -42,10 +42,15 @@ const takeEl = selEl;
 takeEl.addEventListener('change', (event) => {
 const userCity = (event.target.value);
 const notarName = result.results.filter(search => search.City === userCity);
+
+while (notar.firstChild) {
+  notar.firstChild.remove()
+}
+
 for (let i=0; i < notarName.length; i++){
-  const spanEl = document.createElement("p");
-  notar.appendChild(spanEl) 
-  spanEl.textContent = notarName[i].FIO;
+  const spanEl = document.createElement("p");  
+  notar.appendChild(spanEl);  
+  spanEl.textContent = notarName[i].FIO  + ' ' + 'Адрес: ' + ' ' + notarName[i].FullAddress ;
 }
 
 });
@@ -74,5 +79,6 @@ for (let i=0; i < notarName.length; i++){
 //    }
 // });
 }
+
 
 
