@@ -15,37 +15,35 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
 const selEl = document.getElementById("cities");
 const notar = document.querySelector('.notar');
 
-let cityList = []; 
-let notarList = [];
-
 function handleResults(result) {
   let length = result.results.length;
+  let cityList = [];
 
-  // create HTML element 'option' and put there City value  
- 
+  
+//  sort array of the cities by alphabit
   console.log(result.results);
   result.results.sort((a, b) => a.City.localeCompare(b.City));
 
-  // find quantity of elements
-  
+  // create HTML element 'option' and put there the City value  
+
   for (let i = 0; i < length; i++) {  
     const optionEl = document.createElement("option");
     // city + region
     cityList[i] = result.results[i].City;     
-    notarList[i] = result.results[i].FIO; 
     optionEl.value = cityList[i];   
     optionEl.innerHTML =  cityList[i]; 
     selEl.appendChild(optionEl);
   }
-// find notar at City
-const takeEl = selEl;
-takeEl.addEventListener('change', (event) => {
+// get from user the required City
+
+selEl.addEventListener('change', (event) => {
 const userCity = (event.target.value);
 const notarName = result.results.filter(search => search.City === userCity);
 
 while (notar.firstChild) {
   notar.firstChild.remove()
 }
+// show the user all the notaries represented in the city
 
 for (let i=0; i < notarName.length; i++){
   const spanEl = document.createElement("p");  
@@ -54,6 +52,7 @@ for (let i=0; i < notarName.length; i++){
 }
 
 });
+// *******search by indexOf**************************
 
 // takeEl.addEventListener('change', (event) => {
 //   let userCity = (event.target.value);kj
@@ -61,6 +60,9 @@ for (let i=0; i < notarName.length; i++){
 //   console.log(index);
 //   notar.textContent = notarList[index];
 // });
+
+
+// *******search by compare index  in a circle *****
 
 // takeEl.addEventListener('change', (event) => {
   
