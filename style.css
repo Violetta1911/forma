@@ -48,5 +48,6 @@ min-height: 30px;
 
 datalist{
     visibility: hidden;
+    height: 0;
 }
 

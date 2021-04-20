@@ -17,65 +17,73 @@ const notariusOfferList = document.querySelector(".notar");
 const licenseSelectElement = document.getElementById("license");
 const licenseSelectList = document.getElementById("license-list");
 const contactsNotariusOffer = document.querySelector(".contacts");
+
 function handleResults(result) {
-  let length = result.results.length;
+
+  let notariusData = result.results;  
 
   //  sort array of the cities by alphabit
-  console.log(result.results);
-  result.results.sort((a, b) => a.City.localeCompare(b.City));
+  console.log(notariusData);
+  notariusData.sort((a, b) => a.City.localeCompare(b.City)); 
 
-  // create HTML element 'option' and put there the City value
-
-  for (let i = 0; i < length; i++) {  
-    const optionEl = document.createElement("option");  
-    // city + region
-    optionEl.value = result.results[i].City;
-    optionEl.innerHTML = result.results[i].City;
-    citiesSelectElement.appendChild(optionEl);
+  for (let i = 0; i < notariusData.length; i++) {  
+    createCityElementOption(i);
+    createLicenseElementOption(i);    
   }
-  for (let i = 0; i < length; i++) {
-    const optionLicenseEl = document.createElement("option");  
-    // create list of license numbers
-    optionLicenseEl.value = result.results[i].LICENSE;
-    optionLicenseEl.innerHTML = result.results[i].LICENSE;
-    licenseSelectList.appendChild(optionLicenseEl);
-  }
+   
   // get from user the required City
 
   citiesSelectElement.addEventListener("change", (event) => {
-    const notarName = result.results.filter(
+    const notariusName = notariusData.filter(
       (search) => search.City === event.target.value
     );
-
-    while ( notariusOfferList.firstChild) {
-      notar.firstChild.remove();
-    }
-    // show the user all the notaries represented in the city
-
-    for (let i = 0; i < notarName.length; i++) {
-      const spanEl = document.createElement("p");
-      notariusOfferList.appendChild(spanEl);
-      spanEl.textContent =
-        notarName[i].FIO + " " + "Адрес: " + " " + notarName[i].FullAddress;
-    }
+    showNotariusName(notariusName);   
   });
+
   licenseSelectElement.addEventListener("input", (event) => {
-    const notarContacts = result.results.filter(
+    const notariusContacts = notariusData.filter(
       (search) => search.LICENSE === event.target.value
-    );
-
-    while (contactsNotariusOffer.firstChild) {
-      contactsNotariusOffer.firstChild.remove();
-    }
-    // show the user all the notaries represented in the city
-
-    for (let i = 0; i < notarContacts.length; i++) {
-      const spanEl = document.createElement("p");
-      contactsNotariusOffer.appendChild(spanEl);
-      spanEl.textContent =
-        notarContacts[i].ShortAddress;
-    }
+    );      
+    showNotariusContacts(notariusContacts);    
   });
+
+  // create HTML element 'option' and put there the City value
+  function createCityElementOption(i) {
+    const optionCityElement = document.createElement("option");
+    optionCityElement.value = notariusData[i].City;
+    optionCityElement.innerHTML = notariusData[i].City;
+    citiesSelectElement.appendChild(optionCityElement);
+  }
+
+  // create HTML element 'option' and put there the license value
+  function createLicenseElementOption(i) {
+    const optionLicenseElement = document.createElement("option");     
+    optionLicenseElement.value = notariusData[i].LICENSE;
+    optionLicenseElement.innerHTML = notariusData[i].LICENSE;    
+    licenseSelectList.appendChild(optionLicenseElement);
+  }
+
+  // show to user  the contacts of  selected notaries
+  function showNotariusContacts(notariusContacts) {
+    const fieldForReqiedInfo = document.createElement("p");
+    contactsNotariusOffer.appendChild(fieldForReqiedInfo);
+    fieldForReqiedInfo.textContent = notariusContacts[0].ShortAddress;
+  }
+
+  // show the user all the notaries represented in the city
+  function showNotariusName(notariusName) {
+    
+    while ( notariusOfferList.firstChild) {
+      notariusOfferList.firstChild.remove();
+    }  
+
+    for (let i = 0; i < notariusName.length; i++) {
+      const fieldForReqiedInfo = document.createElement("p");
+      notariusOfferList.appendChild(fieldForReqiedInfo);
+      fieldForReqiedInfo.textContent =
+      notariusName[i].FIO + " " + "Адрес: " + " " + notariusName[i].FullAddress;
+    }
+  }
 
   // *******search by indexOf**************************
 
@@ -93,7 +101,7 @@ function handleResults(result) {
   //   let userCity = (event.target.value);
 
   //   for (let i = 0; i < length; i++){
-  //    notarList[i] = result.results[i].FIO;
+  //    notarList[i] = notariusData[i].FIO;
 
   //    if (userCity === cityList[i]){
   //     console.log(notarList[i]);
