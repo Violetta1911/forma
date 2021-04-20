@@ -41,7 +41,12 @@ button {
     font-size: 28px;   
 }
 
-.notar {
+.notar,
+.contacts {
 min-height: 30px;
+}
+
+datalist{
+    visibility: hidden;
 }
 

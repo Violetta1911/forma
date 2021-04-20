@@ -12,10 +12,10 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
   .then((r) => r.json())
   .then(handleResults);
 
-const selEl = document.getElementById("cities");
-const notar = document.querySelector(".notar");
-const newCity = document.getElementById(".city");
-
+const citiesSelectElement = document.getElementById("cities");
+const notariusOfferList = document.querySelector(".notar");
+const licenseSelectElement = document.getElementById("license-number");
+const contactsNotariusOffer = document.querySelector(".contacts");
 function handleResults(result) {
   let length = result.results.length;
 
@@ -25,30 +25,54 @@ function handleResults(result) {
 
   // create HTML element 'option' and put there the City value
 
-  for (let i = 0; i < length; i++) {
-    const optionEl = document.createElement("option");
+  for (let i = 0; i < length; i++) {  
+    const optionEl = document.createElement("option");  
     // city + region
     optionEl.value = result.results[i].City;
     optionEl.innerHTML = result.results[i].City;
-    selEl.appendChild(optionEl);
+    citiesSelectElement.appendChild(optionEl);
+  }
+  for (let i = 0; i < length; i++) {
+    const optionLicenseEl = document.createElement("option");  
+    // create list of license numbers
+    optionLicenseEl.value = result.results[i].LICENSE;
+    optionLicenseEl.innerHTML = result.results[i].LICENSE;
+    licenseSelectElement.appendChild(optionLicenseEl);
   }
   // get from user the required City
 
-  selEl.addEventListener("change", (event) => {
+  citiesSelectElement.addEventListener("change", (event) => {
     const notarName = result.results.filter(
       (search) => search.City === event.target.value
     );
 
-    while (notar.firstChild) {
+    while ( notariusOfferList.firstChild) {
       notar.firstChild.remove();
     }
     // show the user all the notaries represented in the city
 
     for (let i = 0; i < notarName.length; i++) {
       const spanEl = document.createElement("p");
-      notar.appendChild(spanEl);
+      notariusOfferList.appendChild(spanEl);
       spanEl.textContent =
         notarName[i].FIO + " " + "Адрес: " + " " + notarName[i].FullAddress;
+    }
+  });
+  licenseSelectElement.addEventListener("input", (event) => {
+    const notarContacts = result.results.filter(
+      (search) => search.LICENSE === event.target.value
+    );
+
+    while (contactsNotariusOffer.firstChild) {
+      contactsNotariusOffer.firstChild.remove();
+    }
+    // show the user all the notaries represented in the city
+
+    for (let i = 0; i < notarContacts.length; i++) {
+      const spanEl = document.createElement("p");
+      contactsNotariusOffer.appendChild(spanEl);
+      spanEl.textContent =
+        notarContacts[i].ShortAddress;
     }
   });
 

@@ -10,7 +10,8 @@
   <body>
     <form class="form" action="" >
       <div class="input-inner">
-        <input type="text" id='city' placeholder="City" value="" />
+        <p><input type="text" id='license' list="license-number" placeholder="License"/></p>
+        <datalist id="license-number">        
         <input type="text" id='firstname' name="firstname" placeholder="Name" />
         <input type="text" id='region' name="region" placeholder="Region"  />
         <input type="text" placeholder="Contacts" />
@@ -23,6 +24,11 @@
          <h3>Ваш Нотариус</h3>
          <div class="notar" style="width: 400px; border: 1px solid black;"></div>
         </div>
+
+        <div>
+          <h3>Контакты</h3>
+          <div class="contacts" style="width: 400px; border: 1px solid black;"></div>
+         </div>
     </form>
    
     <script src="main.js"></script>
