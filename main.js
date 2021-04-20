@@ -14,7 +14,8 @@ fetch("https://api.sheetson.com/v2/sheets/Notar", {
 
 const citiesSelectElement = document.getElementById("cities");
 const notariusOfferList = document.querySelector(".notar");
-const licenseSelectElement = document.getElementById("license-number");
+const licenseSelectElement = document.getElementById("license");
+const licenseSelectList = document.getElementById("license-list");
 const contactsNotariusOffer = document.querySelector(".contacts");
 function handleResults(result) {
   let length = result.results.length;
@@ -37,7 +38,7 @@ function handleResults(result) {
     // create list of license numbers
     optionLicenseEl.value = result.results[i].LICENSE;
     optionLicenseEl.innerHTML = result.results[i].LICENSE;
-    licenseSelectElement.appendChild(optionLicenseEl);
+    licenseSelectList.appendChild(optionLicenseEl);
   }
   // get from user the required City
 
